@@ -1,0 +1,15 @@
+node_modules/
+.env/
+dist/
+.DS_Store
+*.log
+*.pid
+*.sock
+venv/
+.idea/
+imagens/
+.wwebjs_auth
+.wwebjs_cache
+__pycache__/
+
+
