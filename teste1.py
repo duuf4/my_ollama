@@ -1,32 +1,36 @@
-
-# import ollama
-
-# question = input("Digite a sua dúvida: ")
-
-# response = ollama.chat(model='llama2', messages=[
-#   {
-#     'role': 'user',
-#     'content': question,
-#   },
-# ])
-# print(response['message']['content'])
-
-
 from ollama import Client
+import subprocess
+import textwrap
 
-# Simplifica a criação do cliente - remove headers desnecessários
-client = Client(host='http://localhost:11434')
+def format_response(text):
+    # Quebra o texto em parágrafos mais legíveis
+    paragraphs = text.split('\n\n')
+    formatted = []
+    
+    for para in paragraphs:
+        # Limita cada linha a 80 caracteres e mantém indentação
+        wrapped = textwrap.fill(para.strip(), width=80, 
+                              break_long_words=False,
+                              replace_whitespace=False)
+        formatted.append(wrapped)
+    
+    return '\n\n'.join(formatted)
 
-question = input("Digite a sua dúvida: ")
+client = Client(
+    host='http://localhost:11434',
+    headers={'x-some-header': 'some-value'}
+)
+
+question = input("Digite a(s) sua(s) dúvida(s): ")
 
 try:
-    response = client.chat(model='llama2', messages=[
-        {'role': 'user', 'content': question}
-    ])
+    response = client.chat(model='llama2', messages=[{'role': 'user', 'content': question}])
     
-    # Extrai o conteúdo da resposta
     if isinstance(response, dict):
-        content = response.get('message', {}).get('content') or response.get('response') or str(response)
+        content = (response.get('message', {}).get('content') 
+                  or response.get('response') 
+                  or response.get('content') 
+                  or str(response))
     else:
         msg = getattr(response, 'message', None)
         if isinstance(msg, dict):
@@ -34,14 +38,14 @@ try:
         else:
             content = str(response)
 
-    print("\nResposta:")
-    print(content)
+    # Formata e imprime a resposta de forma organizada
+    print("\n=== Resposta ===\n")
+    print(format_response(content))
+    print("\n==============\n")
 
 except Exception as e:
     err = str(e).lower()
     if 'not found' in err or '404' in err:
-        print(f"Erro: modelo 'llama2' não encontrado.")
-        print("Verifique modelos locais com: ollama ls")
-        print("Para baixar o modelo use: ollama pull llama2")
+        print("Verifique modelos locais: ollama ls")
     else:
         print("Erro ao chamar o modelo:", e)
