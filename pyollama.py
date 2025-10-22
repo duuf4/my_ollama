@@ -11,13 +11,9 @@ question = input("Digite a sua dúvida: ")
 
 
 try:
-    response = client.chat(model='llama2', 
-                           messages=[{
-                               'role': 'user', 
-                                      'content': question
-                                      }])
+    response = client.chat(model='llama2', messages=[{ 'role': 'user', 'content': question }])
 
-    # extrai o texto da resposta em formatos comuns
+    
     if isinstance(response, dict):
         content = response.get('message', {}).get('content') or response.get('response') or response.get('content') or str(response)
     else:
@@ -37,3 +33,5 @@ except Exception as e:
         print("Erro ao chamar o modelo:", e)
 
 print(content)
+
+
