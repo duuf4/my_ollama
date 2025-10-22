@@ -7,7 +7,7 @@ client = Client(
   headers={'x-some-header': 'some-value'}
 )
 
-question = input("Digite a sua dúvida: ")
+question = input("Digite a(s) sua(s) dúvida(s): ")
 
 
 try:
