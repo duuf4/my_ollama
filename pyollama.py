@@ -29,7 +29,9 @@ my_model = 'llama2'
 try:
     response = client.chat(model=my_model, messages=[{'role': 'user', 'content': question}])
 
+    
 
+    
     if isinstance(response, dict):
         content = (response.get('message', {}).get('content') 
                   or response.get('response') 
