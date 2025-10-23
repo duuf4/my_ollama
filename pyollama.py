@@ -17,7 +17,7 @@ def format_response(text):
     return '\n\n'.join(formatted)
 
 client = Client(
-    host='http://localhost:11434',
+    host='http://localhost:11434/',
     headers={'x-some-header': 'some-value'}
 )
 
