@@ -24,7 +24,7 @@ client = Client(
 question = input("Digite a(s) sua(s) dúvida(s): ")
 
 try:
-    response = client.chat(model='llama2', messages=[{'role': 'user', 'content': question}])
+    response = client.chat(model='llama3', messages=[{'role': 'user', 'content': question}])
     
     if isinstance(response, dict):
         content = (response.get('message', {}).get('content') 
