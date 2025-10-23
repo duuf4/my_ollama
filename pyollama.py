@@ -22,10 +22,14 @@ client = Client(
 )
 
 question = input("Digite a(s) sua(s) dúvida(s): ")
+my_model = 'llama2'
+
+
 
 try:
-    response = client.chat(model='llama2', messages=[{'role': 'user', 'content': question}])
-    
+    response = client.chat(model=my_model, messages=[{'role': 'user', 'content': question}])
+
+
     if isinstance(response, dict):
         content = (response.get('message', {}).get('content') 
                   or response.get('response') 
@@ -49,3 +53,5 @@ except Exception as e:
         print("Verifique modelos locais: ollama ls")
     else:
         print("Erro ao chamar o modelo:", e)
+
+
