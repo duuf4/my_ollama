@@ -22,7 +22,8 @@ client = Client(
 )
 
 question = input("Digite a(s) sua(s) dúvida(s): ")
-my_model = 'llama3'
+#my_model = 'llama3'
+my_model = 'tinyllama'
 
 
 
@@ -52,5 +53,27 @@ except Exception as e:
         print("Verifique modelos locais: ollama ls")
     else:
         print("Erro ao chamar o modelo:", e)
+
+
+
+
+from ollama import Client
+import textwrap
+
+def format_response(text):
+    """Formata o texto da resposta em parágrafos legíveis."""
+    paragraphs = text.split('\n\n')
+    formatted = []
+    
+    for para in paragraphs:
+        wrapped = textwrap.fill(
+            para.strip(),
+            width=80,
+            break_long_words=False,
+            replace_whitespace=False
+        )
+        formatted.append(wrapped)
+    
+    return '\n\n'.join(formatted)
 
 
