@@ -26,7 +26,6 @@ question = input("Digite a(s) sua(s) dúvida(s): ")
 my_model = 'tinyllama'
 
 
-
 try:
     response = client.chat(model=my_model, messages=[{'role': 'user', 'content': question}])
 
