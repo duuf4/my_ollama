@@ -56,23 +56,6 @@ except Exception as e:
 
 
 
-from ollama import Client
-import textwrap
 
-def format_response(text):
-    """Formata o texto da resposta em parágrafos legíveis."""
-    paragraphs = text.split('\n\n')
-    formatted = []
-    
-    for para in paragraphs:
-        wrapped = textwrap.fill(
-            para.strip(),
-            width=80,
-            break_long_words=False,
-            replace_whitespace=False
-        )
-        formatted.append(wrapped)
-    
-    return '\n\n'.join(formatted)
 
 
